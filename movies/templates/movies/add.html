@@ -1,8 +1,18 @@
-<form action="/movies/add" method="POST">
+<form action="{% if movie %}/movies/edit/{{movie.id}}{% else %}/movies/add{% endif %}" method="POST">
 
     {% csrf_token %} 
 
-    <input type="text" name="title" id="title" placeholder="Movie title">
-    <input type="text" name="year" id="year" placeholder="Movie year">
-    <input type="submit", value="Add">
+    <input type="text" name="title" id="title" placeholder="Movie title" value="{{movie.title}}">
+    <input type="text" name="year" id="year" placeholder="Movie year" value="{{movie.year}}">
+    <div name="genre" id="genre">
+        {% for genre in genres %}
+            <input type="checkbox" name="genre" id="genre_{{genre.id}}" value="{{genre.id}}"
+                {% if genre in movie.genre.all %}checked{% endif %}>
+            <label for="genre_{{genre.id}}">{{genre.name}}</label>
+        {% endfor %}
+    </div>
+    <input type="text" name="description" id="description" placeholder="Movie description" value="{{movie.description}}">
+    <input type="text" name="rating" id="rating" placeholder="0-10" value="{{movie.rating}}">
+
+    <input type="submit" value="{% if movie %}Save{% else %}Add{% endif %}">
 </form>

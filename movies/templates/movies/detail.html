@@ -1,3 +1,11 @@
 <p>{{movie.title}}</p>
 <p>{{movie.year}}</p>
+
+{% for genre in movie.genre.all %}
+    <p>{{genre}}</p>
+{% endfor %}
+
+<p>{{movie.description}}</p>
+<p>{{movie.rating}}</p>
+    
 <a href="/movies/delete/{{movie.id}}">Delete</a>
