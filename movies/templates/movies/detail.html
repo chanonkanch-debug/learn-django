@@ -1,11 +1,37 @@
-<p>{{movie.title}}</p>
-<p>{{movie.year}}</p>
-
-{% for genre in movie.genre.all %}
-    <p>{{genre}}</p>
-{% endfor %}
-
-<p>{{movie.description}}</p>
-<p>{{movie.rating}}</p>
+<div>
+    <h1>{{ movie.title }} ({{ movie.year }})</h1>
     
-<a href="/movies/delete/{{movie.id}}">Delete</a>
+    <div>
+        {% for genre in movie.genre.all %}
+            <span>{{ genre.name }}</span>
+        {% endfor %}
+    </div>
+
+    <p>{{ movie.description }}</p>
+    <p>⭐ {{ movie.rating }} / 10</p>
+
+    <a href="/movies/edit/{{ movie.id }}">Edit</a>
+    <a href="/movies/delete/{{ movie.id }}">Delete</a>
+</div>
+
+<hr>
+
+<div>
+    <h2>Reviews</h2>
+
+    {% if reviews %}
+        {% for review in reviews %}
+            <div>
+                <p><strong>{{ review.reviewer_name }}</strong> — ⭐ {{ review.score }} / 10</p>
+                <p>{{ review.comment }}</p>
+                <a href="/movies/{{ movie.id }}/reviews/delete/{{ review.id }}">Delete Review</a>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+
+    <a href="/movies/{{ movie.id }}/reviews/add">Add a Review</a>
+    
+</div>

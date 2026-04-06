@@ -1,0 +1,9 @@
+<h2>Add a Review for {{ movie.title }}</h2>
+
+<form action="/movies/{{ movie.id }}/reviews/add" method="POST">
+    {% csrf_token %}
+    <input type="text" name="reviewer_name" placeholder="Your name">
+    <input type="text" name="comment" placeholder="Your review">
+    <input type="number" name="score" placeholder="Score 0-10" min="0" max="10" step="0.1">
+    <input type="submit" value="Submit Review">
+</form>

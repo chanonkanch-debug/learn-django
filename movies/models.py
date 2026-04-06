@@ -18,3 +18,15 @@ class Movie(models.Model):
     
     def __str__(self):
         return f'{self.title} from {self.year}'
+    
+class Review(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    reviewer_name = models.CharField(max_length=200)
+    comment = models.TextField()
+    score = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True) 
+    
+    def __str__(self):
+        return f'{self.movie} : {self.reviewer_name}'
+    
+  
